@@ -20,22 +20,10 @@ module.exports = {
     async.waterfall([
       (done) => {
         const data = req.body
-        if (!(data.firstname &&
-          data.lastname &&
-          data.email &&
-          data.imgUrl &&
-          data.facebookId))
-          return done(constant.ERROR.MISSING_PARAM)
-        done(null, data)
-      },
-      (data, done) => {
-        new User({
-          firstname: data.firstname,
-          lastname: data.lastname,
-          email: data.email,
-          profilePicture: data.imgUrl,
-          facebookId: data.facebookId
-        }).create(done)
+        const user = new User(data)
+        if (!user.validate(true))
+          return done(constant.ERROR.INVALID_PARAM)
+        user.create(done)
       }
     ], (err, result) => {
       if (err) return next(err)
@@ -47,7 +35,12 @@ module.exports = {
     async.waterfall([
       // validate
       (done) => {
-        const body = req.body
+        const id = req.params.id
+        const data = req.body
+        const user = new User(data)
+        if (!user.validate())
+          return done(constant.ERROR.INVALID_PARAM)
+        user.update(id, done)
       }
     ], (err, result) => {
       if (err) return next(err)

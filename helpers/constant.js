@@ -6,6 +6,10 @@ module.exports = {
     MISSING_PARAM: {
       errorCode: 400,
       message: 'Missing parameter.'
+    },
+    INVALID_PARAM: {
+      errorCode: 400,
+      message: 'Invalid parameters.'
     }
   }
 }
