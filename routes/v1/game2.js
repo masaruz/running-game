@@ -2,14 +2,14 @@ const path = require('path')
 const async = require('async')
 const constant = require(path.join(__base, 'helpers', 'constant'))
 
-const User = require(path.join(__base, 'models', 'User'))
+const Game2 = require(path.join(__base, 'models', 'Game2'))
 
 module.exports = {
   // get a user's data
-  get (req, res, next) {
+  find (req, res, next) {
     async.waterfall([
       (done) => {
-        new User().get(req.params.id, done)
+        new Game2().findByUserId(req.params.id, done)
       }
     ], (err, result) => {
       if (err) return next(err)
@@ -20,10 +20,11 @@ module.exports = {
     async.waterfall([
       (done) => {
         const data = req.body
-        const user = new User(data)
-        if (!user.validate(true))
+        data.userId = req.params.id
+        const game = new Game2(data)
+        if (!game.validate(true))
           return done(constant.ERROR.INVALID_PARAM)
-        user.create(done)
+        game.create(done)
       }
     ], (err, result) => {
       if (err) return next(err)

@@ -21,10 +21,10 @@ module.exports = {
       (done) => {
         const data = req.body
         data.userId = req.params.id
-        const game1 = new Game1(data)
-        if (!game1.validate(true))
+        const game = new Game1(data)
+        if (!game.validate(true))
           return done(constant.ERROR.INVALID_PARAM)
-        game1.create(done)
+        game.create(done)
       }
     ], (err, result) => {
       if (err) return next(err)
