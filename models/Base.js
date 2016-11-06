@@ -8,13 +8,13 @@ const SCHEMA = {
 
 class Base {
   constructor (data) {
-    this.tableName = data.tableName
+    this.nodeName = data.nodeName
     this.attributes = data.attributes
     this.schema = Object.assign({}, SCHEMA, data.schema)
   }
 
   get (key, done) {
-    database.ref(this.getTableName())
+    database.ref(this.getNodeName())
       .child(key)
       .once('value', (snapshot) => {
         done(null, {
@@ -26,21 +26,21 @@ class Base {
   update (key, done) {
     const attrs = this.getAttributes()
     attrs.updated = new Date().getTime()
-    database.ref(this.getTableName())
+    database.ref(this.getNodeName())
       .child(key)
       .update(attrs, () => {
         done(null, attrs)
       })
   }
 
-  create (key, done) {
+  create (done) {
     const attrs = this.getAttributes()
     attrs.created = new Date().getTime()
-    database.ref(this.getTableName())
-      .child(key)
-      .set(attrs, () => {
-        done(null, { id: key })
-      })
+    const newRef = database.ref(this.getNodeName())
+      .push(attrs)
+    done(null, {
+      id: newRef.key
+    })
   }
   // validate attributes
   validate (isCreated = false) {
@@ -68,8 +68,8 @@ class Base {
     return this.attributes
   }
 
-  getTableName () {
-    return this.tableName
+  getNodeName () {
+    return this.nodeName
   }
 
   getSchema () {

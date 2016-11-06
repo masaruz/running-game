@@ -16,13 +16,9 @@ class User extends Base {
   constructor (attributes = {}) {
     let data = {}
     data.attributes = attributes
-    data.tableName = constant.TABLE_NAME.USERS
+    data.nodeName = constant.NODE.USERS
     data.schema = SCHEMA
     super(data)
-  }
-
-  create (done) {
-    super.create(modelHelper.uuid(), done)
   }
 }
 

@@ -6,9 +6,8 @@ const constant = require(path.join(__base, 'helpers', 'constant'))
 const Base = require('./Base')
 
 const SCHEMA = {
-  userId: { type: 'string', required: true },
-  location1: { type: 'number' },
-  location2: { type: 'number' },
+  location1: { type: 'string', required: true },
+  location2: { type: 'string', required: true },
   duration: { type: 'number', required: true },
   combo: { type: 'number' }
 }
@@ -17,19 +16,27 @@ class Game1 extends Base {
   constructor (attributes = {}) {
     let data = {}
     data.attributes = attributes
-    data.tableName = constant.TABLE_NAME.GAME_1
+    data.nodeName = constant.NODE.GAME_1
     data.schema = SCHEMA
     super(data)
   }
 
-  create (done) {
-    super.create(modelHelper.uuid(), done)
+  create (userId, done) {
+    const attrs = this.getAttributes()
+    attrs.created = new Date().getTime()
+    const newRef = database.ref(this.getNodeName())
+      .child(userId)
+      .push(attrs)
+    done(null, {
+      id: newRef.key
+    })
   }
 
   findByUserId (key, done) {
-    database.ref(this.getTableName())
-      .orderByChild('userId')
-      .equalTo(key)
+    database.ref(this.getNodeName())
+      .child(key)
+      .orderByChild('created')
+      .limitToLast(5)
       .once('value', (snapshot) => {
         const val = snapshot.val()
         done(null, {
@@ -37,7 +44,7 @@ class Game1 extends Base {
             const obj = val[k]
             obj.id = k
             return obj
-          })
+          }).reverse()
         })
       })
   }

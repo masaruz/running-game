@@ -6,8 +6,7 @@ const constant = require(path.join(__base, 'helpers', 'constant'))
 const Base = require('./Base')
 
 const SCHEMA = {
-  userId: { type: 'string', required: true },
-  location: { type: 'number' },
+  location: { type: 'string', required: true },
   duration: { type: 'number', required: true },
   combo: { type: 'number' }
 }
@@ -16,7 +15,7 @@ class Game2 extends Base {
   constructor (attributes = {}) {
     let data = {}
     data.attributes = attributes
-    data.tableName = constant.TABLE_NAME.GAME_2
+    data.nodeName = constant.NODE.GAME_2
     data.schema = SCHEMA
     super(data)
   }
@@ -26,7 +25,7 @@ class Game2 extends Base {
   }
 
   findByUserId (key, done) {
-    database.ref(this.getTableName())
+    database.ref(this.getNodeName())
       .orderByChild('userId')
       .equalTo(key)
       .once('value', (snapshot) => {

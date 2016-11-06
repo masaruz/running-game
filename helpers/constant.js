@@ -1,5 +1,5 @@
 module.exports = {
-  TABLE_NAME: {
+  NODE: {
     USERS: 'users',
     GAME_1: 'game1',
     GAME_2: 'game2'
