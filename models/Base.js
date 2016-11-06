@@ -51,15 +51,15 @@ class Base {
       return false
     const schema = this.getSchema()
     // validate type and required
-    for (var k in attrs) {
+    for (var k in schema) {
       // not exist in schema
       if (!schema[k])
         return false
       // no required attribute when create
-      if (isCreated && schema[k].required && !attrs[k])
+      if (!attrs[k] && isCreated && schema[k].required)
         return false
       // type is not equal
-      else if (schema[k].type !== typeof attrs[k])
+      else if (attrs[k] && schema[k].type !== typeof attrs[k])
         return false
     }
     return true
