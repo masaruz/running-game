@@ -16,31 +16,28 @@ class Base {
   get (key, done) {
     database.ref(this.getTableName())
       .child(key)
-      .once('value')
-      .then(snapshot => {
+      .once('value', (snapshot) => {
         done(null, snapshot.val())
       })
   }
 
   update (key, done) {
+    const attrs = this.getAttributes()
+    attrs.updated = new Date().getTime()
     database.ref(this.getTableName())
       .child(key)
-      .update(this.getAttributes())
-      .then(data => {
-        done(null, {
-          userId: key
-        })
+      .update(attrs, () => {
+        done(null, attrs)
       })
   }
 
   create (key, done) {
+    const attrs = this.getAttributes()
+    attrs.created = new Date().getTime()
     database.ref(this.getTableName())
       .child(key)
-      .set(this.getAttributes())
-      .then(data => {
-        done(null, {
-          userId: key
-        })
+      .set(attrs, () => {
+        done(null, { userId: key })
       })
   }
   // validate attributes
