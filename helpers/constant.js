@@ -1,6 +1,7 @@
 module.exports = {
   TABLE_NAME: {
-    USERS: 'users'
+    USERS: 'users',
+    GAME_1: 'game1'
   },
   ERROR: {
     MISSING_PARAM: {

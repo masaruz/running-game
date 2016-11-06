@@ -2,6 +2,7 @@ global.__base = 'D:\\Programming\\running-game\\'
 const path = require('path')
 const assert = require('assert')
 const User = require(path.join(__base, 'models', 'User'))
+const Game1 = require(path.join(__base, 'models', 'Game1'))
 
 describe('Validation', function() {
   describe('#user create', function() {
@@ -34,6 +35,17 @@ describe('Validation', function() {
         "firstname": "stamp",
         "lastname": "masaruz"
       }).validate(), true)
+    })
+  })
+  describe('#game1 update', function() {
+    it('check with all required params', function() {
+      assert.equal(new Game1({
+      	"location1": 1,
+      	"location2": 2,
+      	"duration": 10,
+      	"combo": 10,
+      	"userId": "c48fa450-3edb-4174-a02b-3a3901fd4544"
+      }).validate(true), true)
     })
   })
 })

@@ -17,7 +17,9 @@ class Base {
     database.ref(this.getTableName())
       .child(key)
       .once('value', (snapshot) => {
-        done(null, snapshot.val())
+        done(null, {
+          data: snapshot.val()
+        })
       })
   }
 
@@ -37,7 +39,7 @@ class Base {
     database.ref(this.getTableName())
       .child(key)
       .set(attrs, () => {
-        done(null, { userId: key })
+        done(null, { id: key })
       })
   }
   // validate attributes
@@ -56,7 +58,7 @@ class Base {
       if (!attrs[k] && isCreated && schema[k].required)
         return false
       // type is not equal
-      else if (attrs[k] && schema[k].type !== typeof attrs[k])
+      if (attrs[k] && schema[k].type !== typeof attrs[k])
         return false
     }
     return true

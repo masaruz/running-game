@@ -1,5 +1,5 @@
 const path = require('path')
-const userHelper = require(path.join(__base, 'helpers', 'userHelper'))
+const modelHelper = require(path.join(__base, 'helpers', 'modelHelper'))
 const constant = require(path.join(__base, 'helpers', 'constant'))
 
 const Base = require('./Base')
@@ -22,7 +22,7 @@ class User extends Base {
   }
 
   create (done) {
-    super.create(userHelper.uuid(), done)
+    super.create(modelHelper.uuid(), done)
   }
 }
 
