@@ -6,15 +6,15 @@ const game1 = require('./game1')
 const game2 = require('./game2')
 
 /* USER MANAGEMENT */
-router.get('/users/:id', users.get)
+router.get('/users/:userId', users.get)
 router.post('/users', users.create)
-router.post('/users/:id', users.update)
+router.post('/users/:userId', users.update)
 /* GAME MANAGEMENT */
-router.get('/users/:id/game1', game1.find)
-router.post('/users/:id/game1', game1.create)
-router.post('/users/:id/game1/:id', game1.update)
-router.get('/users/:id/game2', game2.find)
-router.post('/users/:id/game2', game2.create)
-router.post('/users/:id/game2/:id', game2.update)
+router.get('/users/:userId/game1', game1.find)
+router.post('/users/:userId/game1', game1.create)
+router.post('/game1/:gameId', game1.update)
+router.get('/users/:userId/game2', game2.find)
+router.post('/users/:userId/game2', game2.create)
+router.post('/game2/:gameId', game2.update)
 
 module.exports = router

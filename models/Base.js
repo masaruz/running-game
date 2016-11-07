@@ -13,33 +13,36 @@ class Base {
     this.schema = Object.assign({}, SCHEMA, data.schema)
   }
 
-  get (key, done) {
-    database.ref(this.getNodeName())
+  get (key) {
+    return database.ref(this.getNodeName())
       .child(key)
-      .once('value', (snapshot) => {
-        done(null, {
+      .once('value')
+      .then(snapshot => {
+        console.log(snapshot.val())
+        return {
           data: snapshot.val()
-        })
+        }
       })
   }
 
-  update (key, done) {
-    const attrs = this.getAttributes()
-    attrs.updated = new Date().getTime()
-    database.ref(this.getNodeName())
+  update (key) {
+    return database.ref(this.getNodeName())
       .child(key)
-      .update(attrs, () => {
-        done(null, attrs)
-      })
+      .update(Object.assign(
+        {},
+        this.getAttributes(),
+        { updated: new Date().getTime() }))
   }
 
-  create (done) {
-    const attrs = this.getAttributes()
-    attrs.created = new Date().getTime()
+  create () {
     const newRef = database.ref(this.getNodeName())
-      .push(attrs)
-    done(null, {
-      id: newRef.key
+      .push(Object.assign(
+        {},
+        this.getAttributes(),
+        { created: new Date().getTime() }
+      ))
+    return newRef.then(() => {
+      return { id: newRef.key }
     })
   }
   // validate attributes
@@ -50,7 +53,7 @@ class Base {
       return false
     const schema = this.getSchema()
     // validate type and required
-    for (var k in schema) {
+    for (let k in schema) {
       // not exist in schema
       if (!schema[k])
         return false

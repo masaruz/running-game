@@ -3,41 +3,19 @@ const database = require(path.join(__base, 'helpers', 'firebaseHelper'))
 const modelHelper = require(path.join(__base, 'helpers', 'modelHelper'))
 const constant = require(path.join(__base, 'helpers', 'constant'))
 
-const Base = require('./Base')
+const GameBase = require('./GameBase')
 
 const SCHEMA = {
-  location: { type: 'string', required: true },
-  duration: { type: 'number', required: true },
-  combo: { type: 'number' }
+  location: { type: 'string', required: true }
 }
 
-class Game2 extends Base {
+class Game2 extends GameBase {
   constructor (attributes = {}) {
-    let data = {}
+    const data = {}
     data.attributes = attributes
-    data.nodeName = constant.NODE.GAME_2
+    data.nodeName = constant.NODE.GAME_1
     data.schema = SCHEMA
     super(data)
-  }
-
-  create (done) {
-    super.create(modelHelper.uuid(), done)
-  }
-
-  findByUserId (key, done) {
-    database.ref(this.getNodeName())
-      .orderByChild('userId')
-      .equalTo(key)
-      .once('value', (snapshot) => {
-        const val = snapshot.val()
-        done(null, {
-          data: Object.keys(val).map(k => {
-            const obj = val[k]
-            obj.id = k
-            return obj
-          })
-        })
-      })
   }
 }
 
