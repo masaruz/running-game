@@ -1,5 +1,4 @@
 const path = require('path')
-const async = require('async')
 const constant = require(path.join(__base, 'helpers', 'constant'))
 
 const Game1 = require(path.join(__base, 'models', 'Game1'))

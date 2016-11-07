@@ -1,5 +1,4 @@
 const path = require('path')
-const async = require('async')
 const constant = require(path.join(__base, 'helpers', 'constant'))
 
 const User = require(path.join(__base, 'models', 'User'))
@@ -29,7 +28,7 @@ module.exports = {
     const user = new User(req.body)
     if (!user.validate())
       return next(constant.ERROR.INVALID_PARAM)
-    user.update(req.params.id)
+    user.update(req.params.userId)
       .then(result => {
         res.send(result)
       })

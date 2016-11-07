@@ -1,6 +1,5 @@
 const path = require('path')
 const database = require(path.join(__base, 'helpers', 'firebaseHelper'))
-const modelHelper = require(path.join(__base, 'helpers', 'modelHelper'))
 const constant = require(path.join(__base, 'helpers', 'constant'))
 
 const GameBase = require('./GameBase')
