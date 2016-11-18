@@ -1,4 +1,5 @@
 const path = require('path')
+const multer  = require('multer')
 const constant = require(path.join(__base, 'helpers', 'constant'))
 
 const User = require(path.join(__base, 'models', 'User'))
@@ -33,5 +34,21 @@ module.exports = {
         res.send(result)
       })
       .catch(next)
-  }
+  },
+  // upload profile picture
+  upload: [
+    multer({
+      storage: multer.diskStorage({
+        destination: (req, file, done) => {
+          done(null, 'uploads')
+        },
+        filename: (req, file, done) => {
+          done(null, req.params.userId + path.extname(file.originalname))
+        }
+      })
+    }).single('avatar'),
+    (req, res, next) => {
+      res.send(req.file)
+    }
+  ]
 }

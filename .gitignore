@@ -2,4 +2,7 @@ node_modules
 node_modules/*
 tmp
 tmp/*
+public
+public/*
+uploads/*
 *.log

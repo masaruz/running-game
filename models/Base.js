@@ -1,5 +1,5 @@
 const path = require('path')
-const database = require(path.join(__base, 'helpers', 'firebaseHelper'))
+const database = require(path.join(__base, 'helpers', 'firebaseHelper')).database()
 
 const SCHEMA = {
   created: { type: 'number' },
