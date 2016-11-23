@@ -16,8 +16,9 @@ module.exports = {
   },
   // create a new user
   create (req, res, next) {
-    new User(req.body)
-      .update(req.body.playerID)
+    const data = JSON.parse(req.body.data)
+    new User(data)
+      .update(data.playerID)
       .then(result => res.send(result))
       .catch(next)
   },
@@ -25,7 +26,8 @@ module.exports = {
   update (req, res, next) {
     const method = req.query.method
     const userId = req.params.userId
-    const user = new User(req.body)
+    const data = JSON.parse(req.body.data)
+    const user = new User(data)
     user.findBySomeId(method, userId)
       .then(result => result.data.playerID)
       .then(userId => user.update(userId))
