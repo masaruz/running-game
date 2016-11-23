@@ -2,7 +2,8 @@ module.exports = {
   NODE: {
     USERS: 'users',
     GAME_1: 'game1',
-    GAME_2: 'game2'
+    GAME_2: 'game2',
+    PICTURES: 'pictures' 
   },
   ERROR: {
     MISSING_PARAM: {
