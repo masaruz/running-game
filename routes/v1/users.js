@@ -7,7 +7,7 @@ const User = require(path.join(__base, 'models', 'User'))
 module.exports = {
   // get a user's data
   get (req, res, next) {
-    new User().get(req.params.userId)
+    new User().findByUserId(req.params.userId)
       .then(result => {
         res.send(result)
       })

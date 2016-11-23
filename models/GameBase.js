@@ -9,10 +9,10 @@ class GameBase extends Base {
     super(data)
   }
 
-  findByUserId (userId) {
+  findByUserId (playerID) {
     return database.ref(this.getNodeName())
-      .orderByChild('userId')
-      .equalTo(userId)
+      .orderByChild('playerID')
+      .equalTo(playerID)
       .limitToLast(5)
       .once('value')
       .then(snapshot => {
