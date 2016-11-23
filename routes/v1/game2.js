@@ -19,8 +19,6 @@ module.exports = {
       req.body,
       req.params
     ))
-    if (!game.validate(true))
-      return next(constant.ERROR.INVALID_PARAM)
     game.create()
       .then(result => {
         res.send(result)
@@ -30,8 +28,6 @@ module.exports = {
   // update game data
   update (req, res, next) {
     const game = new Game2(req.body)
-    if (!game.validate())
-      return done(constant.ERROR.INVALID_PARAM)
     game.update(req.params.gameId)
       .then(result => {
         res.send(result)

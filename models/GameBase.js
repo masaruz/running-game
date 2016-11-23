@@ -4,15 +4,8 @@ const constant = require(path.join(__base, 'helpers', 'constant'))
 
 const Base = require('./Base')
 
-const SCHEMA = {
-  userId: { type: 'string', required: true },
-  duration: { type: 'number', required: true },
-  combo: { type: 'number' }
-}
-
 class GameBase extends Base {
   constructor (data) {
-    data.schema = Object.assign({}, SCHEMA, data.schema)
     super(data)
   }
 
