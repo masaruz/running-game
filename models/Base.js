@@ -11,11 +11,7 @@ class Base {
     return database.ref(this.getNodeName())
       .child(key)
       .once('value')
-      .then(snapshot => {
-        return {
-          data: snapshot.val()
-        }
-      })
+      .then(snapshot => ({ data: snapshot.val() }))
   }
 
   update (key) {
@@ -34,9 +30,7 @@ class Base {
         this.getAttributes(),
         { created: new Date().getTime() }
       ))
-    return newRef.then(() => {
-      return { id: newRef.key }
-    })
+    return newRef.then(() => ({ id: newRef.key }))
   }
 
   getAttributes () {

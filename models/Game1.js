@@ -5,7 +5,7 @@ const GameBase = require('./GameBase')
 
 class Game1 extends GameBase {
   constructor (attributes = {}) {
-    const data = {}
+    let data = {}
     data.attributes = attributes
     data.nodeName = constant.NODE.GAME_1
     super(data)

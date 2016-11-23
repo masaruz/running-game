@@ -1,6 +1,5 @@
 const path = require('path')
 const constant = require(path.join(__base, 'helpers', 'constant'))
-const format = require(path.join(__base, 'helpers', 'formatHelper'))
 const database = require(path.join(__base, 'helpers', 'firebaseHelper')).database()
 
 const Base = require('./Base')
@@ -12,17 +11,28 @@ class User extends Base {
     data.nodeName = constant.NODE.USERS
     super(data)
   }
-
-  findByUserId (playerID) {
+  /**
+   * used for query by any id
+   * @param {String} method
+   * @param {String} id
+   * @return {Object}
+   */
+  findBySomeId (method, id) {
+    let child
+    switch (method) {
+      case 'facebook':
+        child = 'facebookId'
+        break;
+      default:
+        child = 'playerID'
+    }
     return database.ref(this.getNodeName())
-      .orderByChild('playerID')
-      .equalTo(playerID)
+      .orderByChild(child)
+      .equalTo(id)
       .once('value')
-      .then(snapshot => {
-        return {
-          data: format.removeJsonKey(snapshot.val())
-        }
-      })
+      .then(snapshot => ({
+        data: snapshot.val()
+      }))
   }
 }
 
