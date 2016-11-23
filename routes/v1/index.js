@@ -9,6 +9,6 @@ router.post('/users', users.create)
 router.post('/users/:userId', users.update)
 router.post('/users/:userId/upload', users.upload)
 /* PICTURE MANAGEMENT */
-router.get('/pictures/:picId', pictures.get)
+router.get('/pictures/:userId', pictures.get)
 
 module.exports = router
