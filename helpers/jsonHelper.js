@@ -5,7 +5,7 @@ module.exports = {
    * @param {JSON} json
    * @return json or array
    */
-  removeJsonKey (json) {
+   getJsonValue (json) {
     if (!json) return null
     let len = Object.keys(json).length
     let result = []

@@ -1,6 +1,4 @@
 const path = require('path')
-const multer  = require('multer')
-const jsonHelper = require(path.join(__base, 'helpers', 'jsonHelper'))
 const constant = require(path.join(__base, 'helpers', 'constant'))
 
 const Picture = require(path.join(__base, 'models', 'Picture'))
