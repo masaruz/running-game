@@ -36,7 +36,7 @@ module.exports = {
     multer({
       storage: multer.diskStorage({
         destination: (req, file, done) => {
-          done(null, 'uploads')
+          done(null, 'public/images')
         },
         filename: (req, file, done) => {
           done(null, req.params.userId + path.extname(file.originalname))
