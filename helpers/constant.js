@@ -6,6 +6,10 @@ module.exports = {
     PICTURES: 'pictures' 
   },
   ERROR: {
+    NOT_FOUND: {
+      errorCode: 422,
+      message: 'Not found'
+    },
     MISSING_PARAM: {
       errorCode: 400,
       message: 'Missing parameter.'

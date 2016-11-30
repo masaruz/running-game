@@ -6,14 +6,18 @@ class Base {
     this.nodeName = data.nodeName
     this.attributes = data.attributes
   }
-
+  /**
+   * @param {string} key
+   */
   get (key) {
     return database.ref(this.getNodeName())
       .child(key)
       .once('value')
       .then(snapshot => ({ data: snapshot.val() }))
   }
-
+  /**
+   * @param {string} key
+   */
   update (key) {
     return database.ref(this.getNodeName())
       .child(key)

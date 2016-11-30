@@ -8,7 +8,9 @@ class GameBase extends Base {
   constructor (data) {
     super(data)
   }
-
+  /**
+   * @param {string} playerID
+   */
   findByUserId (playerID) {
     return database.ref(this.getNodeName())
       .orderByChild('playerID')

@@ -9,6 +9,14 @@ module.exports = {
     const userId = req.params.userId
     new User()
       .findBySomeId('facebook', userId)
+      // return promise object
+      .then(result => new Promise((resolve, reject) => {
+        // in case of account not found
+        // this facebook never sync account before
+        if (!result.data) 
+          return reject(constant.ERROR.NOT_FOUND)
+        resolve(result)
+      }))
       .then(result => ({ 
         data: { 
           playerID: result.data.playerID 

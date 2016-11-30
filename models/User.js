@@ -14,9 +14,9 @@ class User extends Base {
   }
   /**
    * used for query by any id
-   * @param {String} method
-   * @param {String} id
-   * @return {Object}
+   * @param {string} method
+   * @param {string} id
+   * @return {object}
    */
   findBySomeId (method, id) {
     let child

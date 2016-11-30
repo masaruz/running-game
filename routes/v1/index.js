@@ -6,7 +6,7 @@ const pictures = require('./pictures')
 const facebooks = require('./facebooks')
 /* USER MANAGEMENT */
 router.get('/users/:userId', users.get)
-router.get('/facebook/:userId', facebooks.get)
+router.get('/auth/:userId', facebooks.get)
 router.post('/users', users.create)
 router.post('/users/:userId', users.update)
 // router.post('/users/:userId/upload', users.upload)
