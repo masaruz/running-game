@@ -9,7 +9,11 @@ module.exports = {
     const userId = req.params.userId
     new User()
       .findBySomeId('facebook', userId)
-      .then(result => ({ data: { playerID: result.data.playerID }}))
+      .then(result => ({ 
+        data: { 
+          playerID: result.data.playerID 
+        }
+      }))
       .then(result => res.send(result))
       .catch(next)
   }
