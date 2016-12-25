@@ -5,6 +5,15 @@ const User = require(path.join(__base, 'models', 'User'))
 const Picture = require(path.join(__base, 'models', 'Picture'))
 
 module.exports = {
+  // list all users' data
+  all (req, res, next) {
+    const limit = req.query.limit
+    const nextToken = req.query.nextToken
+    new User()
+      .scan(limit, nextToken)
+      .then(result => res.send(result))
+      .catch(next)
+  },
   // get a user's data
   get (req, res, next) {
     const method = req.query.method

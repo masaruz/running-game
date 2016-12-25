@@ -13,6 +13,28 @@ class User extends Base {
     super(data)
   }
   /**
+   * paging users data
+   * @param {number} limit
+   * @param {string} startAt
+   */
+  scan (limit = 100, startAt = '') {
+    return database.ref(this.getNodeName())
+      .orderByKey()
+      .limitToFirst(limit + 1)
+      .startAt(startAt)
+      .once('value')
+      .then(snapshot => 
+        jsonHelper.getJsonValue(snapshot.val()))
+      .then(snapshot => {
+        let last = snapshot.pop()
+        let result = {}
+        result.data = snapshot
+        if (last.playerID) 
+          result.nextToken = last.playerID
+        return result
+      })
+  }
+  /**
    * used for query by any id
    * @param {string} method
    * @param {string} id
