@@ -10,7 +10,7 @@ module.exports = {
     const limit = req.query.limit
     const nextToken = req.query.nextToken
     new User()
-      .scan(limit, nextToken)
+      .scan(parseInt(limit), nextToken)
       .then(result => res.send(result))
       .catch(next)
   },

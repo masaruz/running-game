@@ -26,11 +26,11 @@ class User extends Base {
       .then(snapshot => 
         jsonHelper.getJsonValue(snapshot.val()))
       .then(snapshot => {
-        let last = snapshot.pop()
-        let result = {}
-        result.data = snapshot
-        if (last.playerID) 
+        let result = { data: snapshot }
+        if (snapshot.length > limit) {
+          let last = snapshot.pop()
           result.nextToken = last.playerID
+        }
         return result
       })
   }
