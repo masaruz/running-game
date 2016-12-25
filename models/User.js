@@ -20,7 +20,7 @@ class User extends Base {
   scan (limit = 100, startAt = '') {
     return database.ref(this.getNodeName())
       .orderByKey()
-      .limitToFirst(limit + 1)
+      .limitToFirst(parseInt(limit) + 1)
       .startAt(startAt)
       .once('value')
       .then(snapshot => 
